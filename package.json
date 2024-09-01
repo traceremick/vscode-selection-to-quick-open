@@ -1,0 +1,33 @@
+{
+  "name": "vscode-selection-to-quick-open",
+  "displayName": "Selection to wildcard quick open",
+  "description": "Selection to wildcard quick open",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:extension.copyToQuickOpen"
+  ],
+  "main": "./out/copyToQuickOpen.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.copyToQuickOpen",
+        "title": "Copy to Quick Open"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.60.0",
+    "typescript": "^4.4.3"
+  }
+}
