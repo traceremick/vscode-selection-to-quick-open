@@ -1,8 +1,9 @@
 import * as vscode from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
+    const editor = vscode.window.activeTextEditor;
+
     let disposable = vscode.commands.registerCommand('extension.copyToQuickOpen', () => {
-        const editor = vscode.window.activeTextEditor;
         if (editor) {
             const selection = editor.selection;
             const text = editor.document.getText(selection);
@@ -11,8 +12,17 @@ export function activate(context: vscode.ExtensionContext) {
             vscode.commands.executeCommand('workbench.action.quickOpen', modifiedText);
         }
     });
+    
+    let disposableGotoFile = vscode.commands.registerCommand('extension.copyToGotoFile', () => {
+        if (editor) {
+            const selection = editor.selection;
+            const text = editor.document.getText(selection);
 
-    context.subscriptions.push(disposable);
+            vscode.commands.executeCommand('workbench.action.quickOpen', text);
+        }
+    });
+
+    context.subscriptions.push(disposable, disposableGotoFile);
 }
 
 export function deactivate() {}
