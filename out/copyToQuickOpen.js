@@ -3,23 +3,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deactivate = exports.activate = void 0;
 const vscode = require("vscode");
 function activate(context) {
-    const editor = vscode.window.activeTextEditor;
-    let disposable = vscode.commands.registerCommand('extension.copyToQuickOpen', () => {
-        if (editor) {
+    // cmd+shift+o
+    let disposableQuickOpen = vscode.commands.registerCommand('extension.copyToQuickOpen', () => {
+        const editor = vscode.window.activeTextEditor;
+        let searchText = '';
+        if (editor && !editor.selection.isEmpty) {
             const selection = editor.selection;
-            const text = editor.document.getText(selection);
-            const modifiedText = '%' + text;
-            vscode.commands.executeCommand('workbench.action.quickOpen', modifiedText);
+            searchText = '%' + editor.document.getText(selection);
         }
+        vscode.commands.executeCommand('workbench.action.quickOpen', searchText);
     });
+    // cmd+shift+f
     let disposableGotoFile = vscode.commands.registerCommand('extension.copyToGotoFile', () => {
-        if (editor) {
+        const editor = vscode.window.activeTextEditor;
+        let searchText = '';
+        if (editor && !editor.selection.isEmpty) {
             const selection = editor.selection;
-            const text = editor.document.getText(selection);
-            vscode.commands.executeCommand('workbench.action.quickOpen', text);
+            searchText = editor.document.getText(selection);
         }
+        vscode.commands.executeCommand('workbench.action.quickOpen', searchText);
     });
-    context.subscriptions.push(disposable, disposableGotoFile);
+    context.subscriptions.push(disposableQuickOpen, disposableGotoFile);
 }
 exports.activate = activate;
 function deactivate() { }

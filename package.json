@@ -1,8 +1,12 @@
 {
   "name": "vscode-selection-to-quick-open",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/traceremick/vscode-selection-to-quick-open"
+  },
   "displayName": "Selection to wildcard quick open",
   "description": "Selection to wildcard quick open",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "engines": {
     "vscode": "^1.60.0"
   },
